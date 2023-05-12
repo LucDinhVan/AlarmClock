@@ -34,9 +34,11 @@
             this.numericUpDownMinutes = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSeconds = new System.Windows.Forms.NumericUpDown();
             this.buttonSetAlarm = new System.Windows.Forms.Button();
+            this.watcher = new System.IO.FileSystemWatcher();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSeconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.watcher)).BeginInit();
             this.SuspendLayout();
             // 
             // labelTime
@@ -79,6 +81,11 @@
             this.buttonSetAlarm.UseVisualStyleBackColor = true;
             this.buttonSetAlarm.Click += new System.EventHandler(this.buttonSetAlarm_Click);
             // 
+            // watcher
+            // 
+            this.watcher.EnableRaisingEvents = true;
+            this.watcher.SynchronizingObject = this;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -95,6 +102,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHours)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSeconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.watcher)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -107,6 +115,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownMinutes;
         private System.Windows.Forms.NumericUpDown numericUpDownSeconds;
         private System.Windows.Forms.Button buttonSetAlarm;
+        private System.IO.FileSystemWatcher watcher;
     }
 }
 

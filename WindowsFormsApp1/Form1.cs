@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
 
 namespace WindowsFormsApp1
 {
@@ -8,7 +9,7 @@ namespace WindowsFormsApp1
     {
         private DateTime alarmTime;
         private NotifyIcon notifyIcon;
-        
+
 
         public MainForm()
         {
@@ -23,6 +24,43 @@ namespace WindowsFormsApp1
             contextMenu.Items.Add("Show", null, (s, e) => this.Show());
             contextMenu.Items.Add("Exit", null, (s, e) => Application.Exit());
             notifyIcon.ContextMenuStrip = contextMenu;
+
+            #region Demo read file by line
+            /*
+            var filePath = @"E:\Project\Tools\AlarmClock\text_file.txt";
+
+            using (var reader = new StreamReader(filePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    // Do something with content text of this line
+                    Console.WriteLine(line);
+                }
+            }
+            */
+            #endregion
+
+            #region Demo FileSystemWatcher
+            var filePath = @"E:\Project\Tools\AlarmClock\text_file.txt";
+            var directoryPath = Path.GetDirectoryName(filePath);
+            var fileName = Path.GetFileName(filePath);
+
+            watcher = new FileSystemWatcher(directoryPath, fileName);
+            watcher.NotifyFilter = NotifyFilters.LastWrite;
+            watcher.Changed += OnChanged;
+            watcher.EnableRaisingEvents = true;
+
+            #endregion
+        }
+
+        private void OnChanged(object source, FileSystemEventArgs e)
+        {
+            if (e.ChangeType == WatcherChangeTypes.Changed)
+            {
+                var message = $"File {e.Name} has been changed!";
+                MessageBox.Show(message, "File Changed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         //private void timer1_Tick(object sender, EventArgs e)
